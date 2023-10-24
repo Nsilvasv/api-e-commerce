@@ -2,24 +2,36 @@ import { Router } from "express";
 
 const router = Router()
 
-router.get("/", (req, res) => {
-    res.send("rota get funfando")
+function buscaProduto(id) {    
+    return produtos.findIndex(produto => {
+        return produto.id === Number(id)
+    })
+}
+
+router.get("/produtos", (req, res) => {
+    res.status(200).json(produtos)
 })
 
-router.get("/:id", (req, res) => {
-    res.send("get id funfando")
+router.get("/produtos/:id", (req, res) => {
+    const index = buscaProduto(req.params.id)
+    res.status(200).json(produtos[index])
 })
 
-router.post("/", (req, res) => {
-    res.send("rota post funfando")
+router.post("/produtos", (req, res) => {
+    produtos.push(req.body)
+    res.status(201).send("Novo item inserido com sucesso!")
 })
 
-router.put("/", (req, res) => {
-    res.send("rota put funfando")
+router.put("/produtos/:id", (req, res) => {
+    const index = buscaProduto(req.params.id)
+    produtos[index].nome = req.body.nome
+    res.status(200).json(produtos[index])
 })
 
-router.delete("/", (req, res) => {
-    res.send("rota delete funfando")
+router.delete("/produtos/:id", (req, res) => {
+    const index = buscaProduto(req.params.id)
+    produtos.splice(index, 1)
+    res.status(200).send("Item deletado com sucesso!")
 })
 
 export default router
