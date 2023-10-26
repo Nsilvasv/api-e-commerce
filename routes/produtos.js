@@ -9,4 +9,8 @@ router.get("/produtos/:id", produtoController.getProdutosId)
 
 router.post("/produtos", produtoController.postProdutos)
 
+router.put("/produtos/:id", produtoController.updateProdutosId)
+
+router.delete("/produtos/:id", produtoController.deleteProdutosId)
+
 export default router
